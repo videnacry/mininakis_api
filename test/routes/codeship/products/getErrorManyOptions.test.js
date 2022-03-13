@@ -24,7 +24,7 @@ test('get first 3 elements in products', async (t) => {
   })
   t.same(JSON.parse(res.payload), { "errors": [
     {
-      "message": "Please select only one option: pFirst, pLast, pAfter, pBefore, or non of them to get a product by pId", 
+      "message": "Please select only one option: pFirst, pLast, pAfter, pBefore", 
       "locations": [
         {
           "line": 1,

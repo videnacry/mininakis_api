@@ -24,7 +24,7 @@ test('get first 3 elements in products', async (t) => {
   })
   t.same(JSON.parse(res.payload), { "errors": [
     {
-      "message": "Please to use pId make sure not to use pFirst or pLast", 
+      "message": "Please do not use pId or pCreatedAt along with pFirst or pLast", 
       "locations": [
         {
           "line": 1,
