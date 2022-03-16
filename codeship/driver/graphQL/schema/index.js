@@ -1,5 +1,6 @@
-const product = require('./product')
-const connections = [product]
+const Product = require('./product')
+const Comment = require('./comment')
+const connections = [Product, Comment]
 
 let schema = `
 type Cursor {
@@ -21,11 +22,11 @@ connections.forEach(connection => {
     schema += `
     ${connection.schema}
     type ${connection.name}Edge {
-      node:Product
+      node:${connection.name}
       cursor:Cursor
     }
     type ${connection.name}Connection {
-      edges:[ProductEdge],
+      edges:[${connection.name}Edge],
       pageInfo:PageInfo!
     }
     `
