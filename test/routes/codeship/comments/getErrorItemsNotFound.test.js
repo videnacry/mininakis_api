@@ -3,7 +3,7 @@
 const { test } = require('tap')
 const { build } = require('../../../helper')
 
-test('get error for giving a value greeter than the limit to one of the options: pFirst, pLast, pAfter, pBefore', async (t) => {
+test('get first 3 elements in comments', async (t) => {
   const app = await build(t)
 
   const res = await app.inject({
@@ -11,9 +11,9 @@ test('get error for giving a value greeter than the limit to one of the options:
     method:'post',
     body:
     JSON.stringify({query:(`{
-          products(pId: "5fca4b95b44c792fe029bd4d", pCreatedAt: "`+Date.parse("2020-12-04T13:50:09.062Z")+`", pBefore: 41){
+          comments(pProduct: "5fca4b95b44c792fe029bd4d", pId: "5fe9dce2d2a28600240edb61", pCreatedAt: "1647315879423", pAfter: 5){
             edges{
-              node{_id,createdAt,title,description,price,type,file_path,img_path},cursor{_id,createdAt}
+              node{ _id, product, comment, owner, createdAt}, cursor{_id, createdAt}
             },pageInfo{
               hasNextPage,hasPreviousPage,startCursor{_id,createdAt},endCursor{_id,createdAt}
             }
@@ -24,7 +24,7 @@ test('get error for giving a value greeter than the limit to one of the options:
   })
   t.same(JSON.parse(res.payload), { "errors": [
     {
-      "message": "Please give a value to only one of the arguments: pFirst, pLast, pAfter, pBefore,and make sure it is an integer between 0 and 41",
+      "message": "Error: Please make sure the cursor or quantity is correct, 0 products found",
       "locations": [
         {
           "line": 1,
@@ -32,11 +32,11 @@ test('get error for giving a value greeter than the limit to one of the options:
         },
       ],
       "path": [
-        "products",
+        "comments",
       ],
     },
   ],
   "data": {
-    "products": null,
+    "comments": null,
   },})
 })

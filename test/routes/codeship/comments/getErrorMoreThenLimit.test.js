@@ -11,9 +11,9 @@ test('get error for giving a value greeter than the limit to one of the options:
     method:'post',
     body:
     JSON.stringify({query:(`{
-          products(pId: "5fca4b95b44c792fe029bd4d", pCreatedAt: "`+Date.parse("2020-12-04T13:50:09.062Z")+`", pBefore: 41){
+          comments(pId: "5fca4b95b44c792fe029bd4d", pCreatedAt: "`+Date.parse("2020-12-04T13:50:09.062Z")+`", pBefore: 41, pProduct: "5fca4b95b44c792fe029bd4d"){
             edges{
-              node{_id,createdAt,title,description,price,type,file_path,img_path},cursor{_id,createdAt}
+              node{ _id, product, comment, owner, createdAt}, cursor{_id, createdAt}
             },pageInfo{
               hasNextPage,hasPreviousPage,startCursor{_id,createdAt},endCursor{_id,createdAt}
             }
@@ -32,11 +32,11 @@ test('get error for giving a value greeter than the limit to one of the options:
         },
       ],
       "path": [
-        "products",
+        "comments",
       ],
     },
   ],
   "data": {
-    "products": null,
+    "comments": null,
   },})
 })

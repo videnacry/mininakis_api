@@ -11,9 +11,9 @@ test('get error for not giving a value to any one of the options: pFirst, pLast,
     method:'post',
     body:
     JSON.stringify({query:(`{
-          products(pCreatedAt:"`+Date.parse("2020-12-04T13:50:09.062Z")+`", pFirst:-1){
+          comments(pCreatedAt:"`+Date.parse("2020-12-04T13:50:09.062Z")+`", pFirst:-1, pProduct: "5fca4b95b44c792fe029bd4d"){
             edges{
-              node{_id,createdAt,title,description,price,type,file_path,img_path},cursor{_id,createdAt}
+              node{ _id, product, comment, owner, createdAt}, cursor{_id, createdAt}
             },pageInfo{
               hasNextPage,hasPreviousPage,startCursor{_id,createdAt},endCursor{_id,createdAt}
             }
@@ -22,21 +22,21 @@ test('get error for not giving a value to any one of the options: pFirst, pLast,
     }),
     headers:{'Content-Type':'application/json'}
   })
-  t.same(JSON.parse(res.payload), { "errors": [
+  t.same(JSON.parse(res.payload), { errors: [
     {
-      "message": "Please give a value to only one of the arguments: pFirst, pLast, pAfter, pBefore,and make sure it is an integer between 0 and 41",
-      "locations": [
+      message: "Please give a value to only one of the arguments: pFirst, pLast, pAfter, pBefore,and make sure it is an integer between 0 and 41",
+      locations: [
         {
-          "line": 1,
-          "column": 2,
+          line: 1,
+          column: 2,
         },
       ],
-      "path": [
-        "products",
+      path: [
+        "comments",
       ],
     },
   ],
-  "data": {
-    "products": null,
+  data: {
+    "comments": null,
   },})
 })

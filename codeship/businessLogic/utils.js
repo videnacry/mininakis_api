@@ -1,17 +1,3 @@
-
-/**
- * increase the "count" property of an object passed as pCounter, by one for each time a "false" boolean value is passed to the function this function returns
- * @param {Object} counter object with "count" number property
- * @returns {Function} function to increase "count" property in the pCounter
- */
- const increaseByBool = (pCounter) => {
-  function count (pBoolean) {
-    if (pBoolean) pCounter.count++
-    return count
-  }
-  return count
-}
-
 /**
  * throws an error if not only one property from pParams is between pMin and pMax
  * @param {Object} pParams properties to check if only one of them is between pMin and pMax, if undefined, counts as not between pMin and pMax
@@ -39,5 +25,5 @@ const onlyOneOptionBetween = (pParams, pMin, pMax) => {
 }
 
 module.exports = {
-  increaseByBool, onlyOneOptionBetween
+  onlyOneOptionBetween
 }

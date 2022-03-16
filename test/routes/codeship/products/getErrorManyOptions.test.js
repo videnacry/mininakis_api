@@ -24,7 +24,7 @@ test('get first 3 elements in products', async (t) => {
   })
   t.same(JSON.parse(res.payload), { "errors": [
     {
-      "message": "Please select only one option: pFirst, pLast, pAfter, pBefore", 
+      "message": "Please give a value to only one of the arguments: pFirst, pLast, pAfter, pBefore,and make sure it is an integer between 0 and 41",
       "locations": [
         {
           "line": 1,
