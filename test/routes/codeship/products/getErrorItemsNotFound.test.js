@@ -3,7 +3,7 @@
 const { test } = require('tap')
 const { build } = require('../../../helper')
 
-test('get error 0 elements in comments', async (t) => {
+test('get error 0 elements found', async (t) => {
   const app = await build(t)
 
   const res = await app.inject({
@@ -11,9 +11,9 @@ test('get error 0 elements in comments', async (t) => {
     method:'post',
     body:
     JSON.stringify({query:(`{
-          comments(pProduct: "5fca4b95b44c792fe029bd4d", pId: "5fe9dce2d2a28600240edb61", pCreatedAt: "1647315879423", pAfter: 5){
+          products(pId: "5fe9dce2d2a28600240edb61", pCreatedAt: "1647315879423", pAfter: 5){
             edges{
-              node{ _id, product, comment, owner, createdAt}, cursor{_id, createdAt}
+              node{_id,createdAt,title,description,price,type,file_path,img_path},cursor{_id,createdAt}
             },pageInfo{
               hasNextPage,hasPreviousPage,startCursor{_id,createdAt},endCursor{_id,createdAt}
             }
@@ -32,11 +32,11 @@ test('get error 0 elements in comments', async (t) => {
         },
       ],
       "path": [
-        "comments",
+        "products",
       ],
     },
   ],
   "data": {
-    "comments": null,
+    "products": null,
   },})
 })

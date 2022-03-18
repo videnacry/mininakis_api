@@ -35,7 +35,7 @@ const getPage = async (pAggregate, pCollection) => {
     productsPromises.push(pCollection.aggregate(pAggregate).toArray())
     
     const results = await Promise.all(productsPromises)
-    if (results[0].length < 1 || results[1].length < 1 || results[2].length < 1) throw new Error('Please make sure the cursor or quantity is correct, 0 products found')
+    if (results[0].length < 1 || results[1].length < 1 || results[2].length < 1) throw new Error('Please make sure the cursor or quantity is correct, 0 elements found')
     
     const products = {}
     results.map(result => {
