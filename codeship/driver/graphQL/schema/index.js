@@ -1,7 +1,8 @@
 const Product = require('./product')
 const Comment = require('./comment')
 const User = require('./user')
-const connections = [Product, Comment, User]
+const Spaceship = require('./spaceship')
+const connections = [Product, Comment, User, Spaceship]
 
 let schema = `
 type Cursor {
