@@ -1,9 +1,9 @@
 'use strict'
 
 const { test } = require('tap')
-const { build } = require('../../../helper')
+const { build } = require('../../../../helper')
 
-test('get error for not giving a value to any one of the options: pFirst, pLast, pAfter, pBefore', async (t) => {
+test('get first 3 elements in spaceships', async (t) => {
   const app = await build(t)
 
   const res = await app.inject({
@@ -11,7 +11,7 @@ test('get error for not giving a value to any one of the options: pFirst, pLast,
     method:'post',
     body:
     JSON.stringify({query:(`{
-          spaceships(pCreatedAt:"`+Date.parse("2020-12-04T13:50:09.062Z")+`", pFirst:-1){
+          spaceships(pId: "5fca4b95b44c792fe029bd4d", pCreatedAt: "`+Date.parse("2020-12-04T13:50:09.062Z")+`", pBefore: 8, pAfter: 3){
             edges{
               node{_id,config{fuselage,propulsionEngine,takeoff},name,goal,goal_explanation,goal_reason,owner,createdAt},cursor{_id,createdAt}
             },pageInfo{

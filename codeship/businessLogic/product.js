@@ -1,14 +1,15 @@
 const Product = require('../driver/mongoDB/product')
-const getterPage = require('./middleware/getterPage')
+const getterElementById = require('./middleware/getterElementById')
+const getterPageByIndex = require('./middleware/getterPageByIndex')
 const Utils = require('./utils')
 
 module.exports = {
-    query: async ({pId, pCreatedAt, pFirst, pLast, pAfter, pBefore}) => {
-        try {
-            const getPage = getterPage({pId, pCreatedAt, pFirst, pLast, pAfter, pBefore})
-            return await getPage(Product.indexWithCursor, Product.indexWhithoutCursor)
-        } catch (e) {
-            return e
-        }
+    index: async ({pId, pCreatedAt, pFirst, pLast, pAfter, pBefore}) => {
+        const getPage = getterPageByIndex({pId, pCreatedAt, pFirst, pLast, pAfter, pBefore})
+        return await getPage(Product.indexWithCursor, Product.indexWhithoutCursor)
+    },
+    show: async ({pId}) => {
+        const getElementById = getterElementById({pId})
+        return await getElementById(Product.showById)
     }
 }

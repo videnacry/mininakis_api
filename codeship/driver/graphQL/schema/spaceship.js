@@ -20,5 +20,6 @@ module.exports = {
   querySchema:
   `
   spaceships(pId:String, pCreatedAt:String, pFirst:Int, pLast:Int, pAfter:Int, pBefore:Int):SpaceshipConnection
+  spaceship(pOwner:String, pId:String):Spaceship
   `
 }

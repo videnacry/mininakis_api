@@ -1,4 +1,4 @@
-const Utils = require('./utils')
+const Page = require('./page')
 
 let collection = null
 
@@ -10,11 +10,11 @@ module.exports = {
   },
   indexWithCursor: (pProduct) => {
     return async(pLead, pCursor) => {
-      const aggregate = Utils.aggregatePage(pLead)(Utils.aggregateCursor(pCursor)(pLead)(Utils.aggregateMatchObjectID({product:pProduct})([])))
-      return await Utils.getPage(aggregate, collection)
+      const aggregate = Page.aggregate(pLead)(Page.aggregateCursor(pCursor)(pLead)(Page.aggregateMatchObjectID({product:pProduct})([])))
+      return await Page.get(aggregate, collection)
     }
   },
   indexWhithoutCursor: (pProduct) => {
-    return async (pLead) => await Utils.getPage(Utils.aggregatePage(pLead)(Utils.aggregateMatchObjectID({product:pProduct})([])), collection)
+    return async (pLead) => await Page.get(Page.aggregate(pLead)(Page.aggregateMatchObjectID({product:pProduct})([])), collection)
   },
 }

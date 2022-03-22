@@ -1,9 +1,9 @@
 'use strict'
 
 const { test } = require('tap')
-const { build } = require('../../../helper')
+const { build } = require('../../../../helper')
 
-test('get error 0 elements found', async (t) => {
+test('get first 3 elements in spaceships', async (t) => {
   const app = await build(t)
 
   const res = await app.inject({
@@ -11,7 +11,7 @@ test('get error 0 elements found', async (t) => {
     method:'post',
     body:
     JSON.stringify({query:(`{
-          spaceships(pId: "5fe9dce2d2a28600240edb61", pCreatedAt: "1647315879423", pAfter: 5){
+          spaceships(pId: "5fca4b95b44c792fe029bd4d", pFirst: 33){
             edges{
               node{_id,config{fuselage,propulsionEngine,takeoff},name,goal,goal_explanation,goal_reason,owner,createdAt},cursor{_id,createdAt}
             },pageInfo{
@@ -24,7 +24,7 @@ test('get error 0 elements found', async (t) => {
   })
   t.same(JSON.parse(res.payload), { "errors": [
     {
-      "message": "Error: Please make sure the cursor or quantity is correct, 0 elements found",
+      "message": "Please do not use pId or pCreatedAt along with pFirst or pLast", 
       "locations": [
         {
           "line": 1,

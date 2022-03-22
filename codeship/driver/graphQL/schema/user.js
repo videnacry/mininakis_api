@@ -18,5 +18,6 @@ module.exports = {
   querySchema:
   `
   users(pId:String, pCreatedAt:String, pFirst:Int, pLast:Int, pAfter:Int, pBefore:Int):UserConnection
+  user(pId:String):User
   `
 }

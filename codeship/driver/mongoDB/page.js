@@ -16,7 +16,7 @@ const aggregateMatchObjectID = (pMatch) => (pAggregate) => {
   ]
 }
 
-const aggregatePage = (pLead) => (pAggregate) => [
+const aggregate = (pLead) => (pAggregate) => [
   ...pAggregate,
   {$sort: {createdAt: pLead.sort, _id: pLead.sort}},
   {$limit: pLead.limit},
@@ -27,7 +27,7 @@ const aggregatePage = (pLead) => (pAggregate) => [
   }}
 ]
 
-const getPage = async (pAggregate, pCollection) => {
+const get = async (pAggregate, pCollection) => {
   try {
     const productsPromises = []
     productsPromises.push(pCollection.aggregate([{$sort:{createdAt:1, _id:1}},{$limit:1},{$project:{_id:1}},{$addFields:{isFirst:true}}]).toArray())
@@ -60,5 +60,5 @@ const getPage = async (pAggregate, pCollection) => {
 }
 
 module.exports = {
-    aggregateCursor, aggregateMatchObjectID, aggregatePage, getPage
+    aggregateCursor, aggregateMatchObjectID, aggregate, get
 }

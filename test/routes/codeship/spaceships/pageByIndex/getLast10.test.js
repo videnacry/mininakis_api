@@ -1,7 +1,7 @@
 'use strict'
 
 const { test } = require('tap')
-const { build } = require('../../../helper')
+const { build } = require('../../../../helper')
 
 test('get first 3 elements in spaceships', async (t) => {
   const app = await build(t)

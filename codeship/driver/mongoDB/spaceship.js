@@ -1,4 +1,5 @@
-const Utils = require('./utils')
+const Page = require('./page')
+const ObjectID = require('bson').ObjectID
 
 let collection = null
 
@@ -9,10 +10,16 @@ module.exports = {
     }
   },
   indexWithCursor: async (pLead, pCursor) => {
-    const aggregate = Utils.aggregatePage(pLead)(Utils.aggregateCursor(pCursor)(pLead)([]))
-    return await Utils.getPage(aggregate, collection)
+    const aggregate = Page.aggregate(pLead)(Page.aggregateCursor(pCursor)(pLead)([]))
+    return await Page.get(aggregate, collection)
   },
   indexWhithoutCursor: async (pLead) => {
-    return await Utils.getPage(Utils.aggregatePage(pLead)([]), collection)
+    return await Page.get(Page.aggregate(pLead)([]), collection)
   },
+  showById: async (pId) => {
+    return await collection.findOne({_id: ObjectID(pId)})
+  },
+  showByOwner: async (pOwner) => {
+    return await collection.findOne({owner: ObjectID(pOwner)})
+  }
 }

@@ -14,5 +14,6 @@ module.exports = {
   querySchema:
   `
   products(pId:String, pCreatedAt:String, pFirst:Int, pLast:Int, pAfter:Int, pBefore:Int):ProductConnection
+  product(pId:String):Product
   `
 }

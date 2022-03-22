@@ -26,7 +26,7 @@ const getterPage = ({pId, pCreatedAt, pFirst, pLast, pAfter, pBefore}) => {
             
             return entityPage
         } catch (e) {
-            throw new Error (e.message)
+            return new Error (e.message)
         }
 
     }
