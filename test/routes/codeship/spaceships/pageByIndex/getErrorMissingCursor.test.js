@@ -3,7 +3,7 @@
 const { test } = require('tap')
 const { build } = require('../../../../helper')
 
-test('get first 3 elements in spaceships', async (t) => {
+test('get an error for not giving a valid cursor value when using "pBefore" or "pAfter"', async (t) => {
   const app = await build(t)
 
   const res = await app.inject({

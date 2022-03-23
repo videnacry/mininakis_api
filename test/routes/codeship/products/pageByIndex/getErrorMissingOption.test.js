@@ -1,9 +1,9 @@
 'use strict'
 
 const { test } = require('tap')
-const { build } = require('../../../helper')
+const { build } = require('../../../../helper')
 
-test('get error for giving a value greeter than the limit to one of the options: pFirst, pLast, pAfter, pBefore', async (t) => {
+test('get error for not giving a value to any one of the options: pFirst, pLast, pAfter, pBefore', async (t) => {
   const app = await build(t)
 
   const res = await app.inject({
@@ -11,7 +11,7 @@ test('get error for giving a value greeter than the limit to one of the options:
     method:'post',
     body:
     JSON.stringify({query:(`{
-          products(pId: "5fca4b95b44c792fe029bd4d", pCreatedAt: "`+Date.parse("2020-12-04T13:50:09.062Z")+`", pBefore: 41){
+          products(pCreatedAt:"`+Date.parse("2020-12-04T13:50:09.062Z")+`", pFirst:-1){
             edges{
               node{_id,createdAt,title,description,price,type,file_path,img_path},cursor{_id,createdAt}
             },pageInfo{

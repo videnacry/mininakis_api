@@ -1,5 +1,6 @@
 const User = require('../driver/mongoDB/user')
 const getterPageByIndex = require('./middleware/getterPageByIndex')
+const getterElementById = require('./middleware/getterElementById')
 
 module.exports = {
     index: async ({pId, pCreatedAt, pFirst, pLast, pAfter, pBefore}) => {

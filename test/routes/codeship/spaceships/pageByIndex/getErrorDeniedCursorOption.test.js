@@ -3,7 +3,7 @@
 const { test } = require('tap')
 const { build } = require('../../../../helper')
 
-test('get first 3 elements in spaceships', async (t) => {
+test('get error because the cursor is not valid, wich is made up of _id and createdAt', async (t) => {
   const app = await build(t)
 
   const res = await app.inject({

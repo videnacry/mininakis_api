@@ -3,7 +3,7 @@
 const { test } = require('tap')
 const { build } = require('../../../../helper')
 
-test('get error for giving a value greeter than the limit to one of the options: pFirst, pLast, pAfter, pBefore', async (t) => {
+test('get an error for giving a value greeter than the limit to one of the options: pFirst, pLast, pAfter, pBefore', async (t) => {
   const app = await build(t)
 
   const res = await app.inject({

@@ -1,9 +1,9 @@
 'use strict'
 
 const { test } = require('tap')
-const { build } = require('../../../helper')
+const { build } = require('../../../../helper')
 
-test('get error elements not found', async (t) => {
+test('get error for not giving a value to any one of the options: pFirst, pLast, pAfter, pBefore', async (t) => {
   const app = await build(t)
 
   const res = await app.inject({
@@ -11,7 +11,7 @@ test('get error elements not found', async (t) => {
     method:'post',
     body:
     JSON.stringify({query:(`{
-          users(pId: "5fd367cfbd922c002458f6a9", pCreatedAt: "1647486627428", pBefore: 5){
+          users(pCreatedAt:"`+Date.parse("2020-12-04T13:50:09.062Z")+`", pFirst:-1){
             edges{
               node{
                 _id,
@@ -37,7 +37,7 @@ test('get error elements not found', async (t) => {
   })
   t.same(JSON.parse(res.payload), { "errors": [
     {
-      "message": "Error: Please make sure the cursor or quantity is correct, 0 elements found",
+      "message": "Please give a value to only one of the arguments: pFirst, pLast, pAfter, pBefore,and make sure it is an integer between 0 and 41",
       "locations": [
         {
           "line": 1,

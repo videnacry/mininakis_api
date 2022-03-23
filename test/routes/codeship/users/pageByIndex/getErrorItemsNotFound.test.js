@@ -1,9 +1,9 @@
 'use strict'
 
 const { test } = require('tap')
-const { build } = require('../../../helper')
+const { build } = require('../../../../helper')
 
-test('get first 3 elements in users', async (t) => {
+test('get error 0 elements found', async (t) => {
   const app = await build(t)
 
   const res = await app.inject({
@@ -11,7 +11,7 @@ test('get first 3 elements in users', async (t) => {
     method:'post',
     body:
     JSON.stringify({query:(`{
-          users(pBefore: 30){
+          users(pId: "5fd367cfbd922c002458f6a9", pCreatedAt: "1647486627428", pBefore: 5){
             edges{
               node{
                 _id,
@@ -37,7 +37,7 @@ test('get first 3 elements in users', async (t) => {
   })
   t.same(JSON.parse(res.payload), { "errors": [
     {
-      "message": "Please to use pAfter or pBefore, you must also use pCursor", 
+      "message": "Error: Please make sure the cursor or quantity is correct, 0 elements found",
       "locations": [
         {
           "line": 1,

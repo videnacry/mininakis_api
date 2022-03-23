@@ -1,7 +1,7 @@
 'use strict'
 
 const { test } = require('tap')
-const { build } = require('../../../helper')
+const { build } = require('../../../../helper')
 
 test('get error 0 elements found', async (t) => {
   const app = await build(t)

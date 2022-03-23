@@ -1,9 +1,9 @@
 'use strict'
 
 const { test } = require('tap')
-const { build } = require('../../../helper')
+const { build } = require('../../../../helper')
 
-test('get error for not giving a value to any one of the options: pFirst, pLast, pAfter, pBefore', async (t) => {
+test('get error because the request comes with parameters wich not work togheter', async (t) => {
   const app = await build(t)
 
   const res = await app.inject({
@@ -11,22 +11,9 @@ test('get error for not giving a value to any one of the options: pFirst, pLast,
     method:'post',
     body:
     JSON.stringify({query:(`{
-          users(pCreatedAt:"`+Date.parse("2020-12-04T13:50:09.062Z")+`", pFirst:-1){
+          products(pId: "5fca4b95b44c792fe029bd4d", pCreatedAt: "`+Date.parse("2020-12-04T13:50:09.062Z")+`", pBefore: 8, pAfter: 3){
             edges{
-              node{
-                _id,
-                img_path,
-                cart,
-                items,
-                points,
-                username,
-                name,
-                lastname,
-                email,
-                password,
-                description,
-                createdAt
-              },cursor{_id,createdAt}
+              node{_id,createdAt,title,description,price,type,file_path,img_path},cursor{_id,createdAt}
             },pageInfo{
               hasNextPage,hasPreviousPage,startCursor{_id,createdAt},endCursor{_id,createdAt}
             }
@@ -45,11 +32,11 @@ test('get error for not giving a value to any one of the options: pFirst, pLast,
         },
       ],
       "path": [
-        "users",
+        "products",
       ],
     },
   ],
   "data": {
-    "users": null,
+    "products": null,
   },})
 })

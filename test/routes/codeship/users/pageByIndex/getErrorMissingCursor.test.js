@@ -1,9 +1,9 @@
 'use strict'
 
 const { test } = require('tap')
-const { build } = require('../../../helper')
+const { build } = require('../../../../helper')
 
-test('get error for giving a value greeter than the limit to one of the options: pFirst, pLast, pAfter, pBefore', async (t) => {
+test('get an error for not giving a valid cursor value when using "pBefore" or "pAfter"', async (t) => {
   const app = await build(t)
 
   const res = await app.inject({
@@ -11,7 +11,7 @@ test('get error for giving a value greeter than the limit to one of the options:
     method:'post',
     body:
     JSON.stringify({query:(`{
-          users(pId: "5fca4b95b44c792fe029bd4d", pCreatedAt: "`+Date.parse("2020-12-04T13:50:09.062Z")+`", pBefore: 41){
+          users(pBefore: 30){
             edges{
               node{
                 _id,
@@ -37,7 +37,7 @@ test('get error for giving a value greeter than the limit to one of the options:
   })
   t.same(JSON.parse(res.payload), { "errors": [
     {
-      "message": "Please give a value to only one of the arguments: pFirst, pLast, pAfter, pBefore,and make sure it is an integer between 0 and 41",
+      "message": "Please to use pAfter or pBefore, you must also use pCursor", 
       "locations": [
         {
           "line": 1,

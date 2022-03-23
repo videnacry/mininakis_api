@@ -1,47 +1,30 @@
 'use strict'
 
 const { test } = require('tap')
-const { build } = require('../../../helper')
+const { build } = require('../../../../helper')
 
-test('get first 3 elements in products', async (t) => {
+test('get first 5 elements after the element represented by the cursor, in the collection, which is sorted by createdAt and _id', async (t) => {
   const app = await build(t)
 
   const res = await app.inject({
     url: '/codeship',
     method:'post',
     body:
-    (`{"query":"{
-          products(pLast:10){
+    JSON.stringify({query:(`{
+          products(pId: "5fca4b95b44c792fe029bd4d", pCreatedAt: "`+Date.parse("2020-12-04T13:50:09.062Z")+`", pAfter: 5){
             edges{
               node{_id,createdAt,title,description,price,type,file_path,img_path},cursor{_id,createdAt}
             },pageInfo{
               hasNextPage,hasPreviousPage,startCursor{_id,createdAt},endCursor{_id,createdAt}
             }
           }
-        }"
-      }`).replace(/\n| /gi, ''),
+        }`).replace(/\n| /gi, ''),
+    }),
     headers:{'Content-Type':'application/json'}
   })
-  t.same(JSON.parse(res.payload), { data:{
-    products:{
+  t.same(JSON.parse(res.payload), { data: {
+    products: {
       edges: [
-        {
-          node: {
-            _id: ("5fca4b95b44c792fe029bd4d"),
-            createdAt: Date.parse("2020-12-04T13:50:09.062Z"),
-            title: 'SpiderTO',
-            description: 'Spider take-off propulsion, well known for the hot swap of percentage of components to get a completely different source of push which make it perfect to go outerspace or under water! the only problem is the need of lot of components.',
-            price: 16,
-            type: 'takeoff',
-            file_path: 'SpiderTO.js',
-            img_path: '/img/product/1607093141236SpiderTO.png',
-            
-          },
-          cursor: {
-            _id: ("5fca4b95b44c792fe029bd4d"),
-            createdAt: Date.parse("2020-12-04T13:50:09.062Z")
-          }
-        },
         {
           node: {
             _id: ("5fca4c71b44c792fe029bd4e"),
@@ -126,84 +109,16 @@ test('get first 3 elements in products', async (t) => {
             _id: ("5fca5c9607dcab1c4c9a5732"),
             createdAt: Date.parse("2020-12-04T14:57:27.243Z")
           }
-        },
-        {
-          node: {
-            _id: ("5fca5dd607dcab1c4c9a5733"),
-            createdAt: Date.parse("2020-12-04T14:57:27.243Z"),
-            title: 'DinoTO',
-            description: 'Dino take-off propulsion has some point on its name, the strength in this component is so much that cities had been moved with it, to control such strenght this has been elaborated without taking in count speed.',
-            price: 18,
-            type: 'takeoff',
-            file_path: 'DinoTO.js',
-            img_path: '/img/product/1607097814473DinoTO.png',
-            
-          },
-          cursor: {
-            _id: ("5fca5dd607dcab1c4c9a5733"),
-            createdAt: Date.parse("2020-12-04T14:57:27.243Z")
-          }
-        },
-        {
-          node: {
-            _id: ("5fca5f3407dcab1c4c9a5734"),
-            createdAt: Date.parse("2020-12-04T14:57:27.243Z"),
-            title: 'SaucerTO',
-            description: 'Saucer take-off propulsion were a totally crazy idea, they were supposed to create layers in the space so the risk of falling were null, even though some experiments went good, they are not ready for real deals, be carefull with them',
-            price: 16,
-            type: 'takeoff',
-            file_path: 'SaucerTO.js',
-            img_path: '/img/product/1607098164618SaucerTO.png',
-            
-          },
-          cursor: {
-            _id: ("5fca5f3407dcab1c4c9a5734"),
-            createdAt: Date.parse("2020-12-04T14:57:27.243Z")
-          }
-        },
-        {
-          node: {
-            _id: ("5fca65fc07dcab1c4c9a5735"),
-            createdAt: Date.parse("2020-12-04T14:57:27.243Z"),
-            title: 'CapsulePE',
-            description: "Capsule propulsion engine manage to make travels safer, it's push is in all direction so the objects around can't harm it, the secret is the kind of push it gives, there are cases were the spaceship went through objects.",
-            price: 20,
-            type: 'propulsionEngine',
-            file_path: 'CapsulePE.js',
-            img_path: '/img/product/1607099900804CapsulePE.png',
-            
-          },
-          cursor: {
-            _id: ("5fca65fc07dcab1c4c9a5735"),
-            createdAt: Date.parse("2020-12-04T14:57:27.243Z")
-          }
-        },
-        {
-          node: {
-            _id: ("5fca680e07dcab1c4c9a5736"),
-            createdAt: Date.parse("2020-12-04T14:57:27.243Z"),
-            title: 'RaptorPE',
-            description: "Raptor propulsion engine offers a lot of strenght, it is old fashion to go with one of this, and it's cost is high 'cause only fans have one of this, even though the speed could be su high for it's exclusivity.",
-            price: 18,
-            type: 'propulsionEngine',
-            file_path: 'RaptorPE.png',
-            img_path: '/img/product/1607100430954RaptorPE.png',
-            
-          },
-          cursor: {
-            _id: ("5fca680e07dcab1c4c9a5736"),
-            createdAt: Date.parse("2020-12-04T14:57:27.243Z")
-          }
         }
       ], pageInfo: {
-        hasNextPage: false,
+        hasNextPage: true,
         hasPreviousPage: true,
         startCursor: {
-          _id: ("5fca4b95b44c792fe029bd4d"),
+          _id: ("5fca4c71b44c792fe029bd4e"),
           createdAt: Date.parse("2020-12-04T13:50:09.062Z")
         },
         endCursor: {
-          _id: ("5fca680e07dcab1c4c9a5736"),
+          _id: ("5fca5c9607dcab1c4c9a5732"),
           createdAt: Date.parse("2020-12-04T14:57:27.243Z")
         }
       }

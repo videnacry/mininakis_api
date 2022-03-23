@@ -1,9 +1,9 @@
 'use strict'
 
 const { test } = require('tap')
-const { build } = require('../../../helper')
+const { build } = require('../../../../helper')
 
-test('get first 3 elements in products', async (t) => {
+test('get error because the cursor is not valid, wich is made up of _id and createdAt', async (t) => {
   const app = await build(t)
 
   const res = await app.inject({
@@ -11,9 +11,22 @@ test('get first 3 elements in products', async (t) => {
     method:'post',
     body:
     JSON.stringify({query:(`{
-          products(pId: "5fca4b95b44c792fe029bd4d", pFirst: 33){
+          users(pId: "5fca4b95b44c792fe029bd4d", pFirst: 33){
             edges{
-              node{_id,createdAt,title,description,price,type,file_path,img_path},cursor{_id,createdAt}
+              node{
+                _id,
+                img_path,
+                cart,
+                items,
+                points,
+                username,
+                name,
+                lastname,
+                email,
+                password,
+                description,
+                createdAt
+              },cursor{_id,createdAt}
             },pageInfo{
               hasNextPage,hasPreviousPage,startCursor{_id,createdAt},endCursor{_id,createdAt}
             }
@@ -32,11 +45,11 @@ test('get first 3 elements in products', async (t) => {
         },
       ],
       "path": [
-        "products",
+        "users",
       ],
     },
   ],
   "data": {
-    "products": null,
+    "users": null,
   },})
 })

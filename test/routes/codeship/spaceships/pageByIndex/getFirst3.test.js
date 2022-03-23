@@ -3,7 +3,7 @@
 const { test } = require('tap')
 const { build } = require('../../../../helper')
 
-test('get first 3 elements in spaceships', async (t) => {
+test('get first 3 elements in the collection, which is sorted by createdAt and _id', async (t) => {
   const app = await build(t)
 
   const res = await app.inject({
