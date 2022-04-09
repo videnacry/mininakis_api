@@ -17,6 +17,6 @@ module.exports = async function (fastify, opts) {
     resolvers: MyGraphQL.Resolver
   })
   fastify.post('/', async function (request, reply) {
-    return reply.graphql(request.body.query)
+    return reply.graphql(request.body.query,undefined,request.body.variables)
   })
 }
